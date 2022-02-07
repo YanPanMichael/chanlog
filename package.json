@@ -1,6 +1,6 @@
 {
   "name": "chanlog",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A beautiful tool to make changelog file",
   "bin": {
     "chanlog": "bin/cli.js"
