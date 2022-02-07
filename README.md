@@ -21,7 +21,7 @@ npm i -D chanlog # OR yarn add -D chanlog
 ```
 
 ```bash
-npm run release # OR yarn release
+npm run chanlog # OR yarn chanlog
 ```
 
 <br>
