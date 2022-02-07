@@ -1,6 +1,7 @@
 const changelog = require('./lib/changelog')
 const fs = require('fs')
 const chalk = require('chalk')
+const figures = require('figures')
 const path = require('path')
 const printError = require('./lib/utils/print-error')
 const { resolveUpdaterObjectFromArgument } = require('./lib/updaters')
@@ -66,7 +67,7 @@ module.exports = async function changeLog (argv) {
     } else {
       throw new Error('no package file found')
     }
-    console.info(`${chalk.yellow(figures.info)} version marked as ${chalk.gray(version.trim())}\n`)
+    console.info(`${chalk.yellow(figures.info)} version: ${chalk.gray(version.trim())}\n`)
     await changelog(args, version)
   } catch (err) {
     printError(args, err.message)
