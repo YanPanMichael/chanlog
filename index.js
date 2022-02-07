@@ -1,10 +1,11 @@
 const changelog = require('./lib/changelog')
 const fs = require('fs')
+const chalk = require('chalk')
 const path = require('path')
 const printError = require('./lib/utils/print-error')
 const { resolveUpdaterObjectFromArgument } = require('./lib/updaters')
 
-module.exports = async function standardVersion (argv) {
+module.exports = async function changeLog (argv) {
   const defaults = require('./defaults')
   /**
    * `--message` (`-m`) support will be removed in the next major version.
@@ -18,14 +19,14 @@ module.exports = async function standardVersion (argv) {
      */
     argv.releaseCommitMessageFormat = message.replace(/%s/g, '{{currentTag}}')
     if (!argv.silent) {
-      console.warn('[standard-version]: --message (-m) will be removed in the next major release. Use --releaseCommitMessageFormat.')
+      console.warn('[chan-log]: --message (-m) will be removed in the next major release. Use --releaseCommitMessageFormat.')
     }
   }
 
   if (argv.changelogHeader) {
     argv.header = argv.changelogHeader
     if (!argv.silent) {
-      console.warn('[standard-version]: --changelogHeader will be removed in the next major release. Use --header.')
+      console.warn('[chan-log]: --changelogHeader will be removed in the next major release. Use --header.')
     }
   }
 
@@ -58,15 +59,15 @@ module.exports = async function standardVersion (argv) {
   try {
     let version
     if (pkg) {
+      // first read version from pkg
       version = pkg.version
     } else if (args.gitTagFallback) {
       version = await latestSemverTag(args.tagPrefix)
     } else {
       throw new Error('no package file found')
     }
-
-    // const newVersion = await bump(args, version)
-    await changelog(args, newVersion)
+    console.info(`version: ${chalk.gray(version.trim())}\n`)
+    await changelog(args, version)
   } catch (err) {
     printError(args, err.message)
     throw err

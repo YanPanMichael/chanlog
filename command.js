@@ -53,7 +53,7 @@ const yargs = require('yargs')
   })
   .option('commit-all', {
     alias: 'a',
-    describe: 'Commit all staged changes, not just files affected by standard-version',
+    describe: 'Commit all staged changes, not just files affected by chan-log',
     type: 'boolean',
     default: defaults.commitAll
   })
@@ -79,7 +79,7 @@ const yargs = require('yargs')
   .option('dry-run', {
     type: 'boolean',
     default: defaults.dryRun,
-    describe: 'See the commands that running standard-version would run'
+    describe: 'See the commands that running chan-log would run'
   })
   .option('git-tag-fallback', {
     type: 'boolean',
@@ -99,10 +99,6 @@ const yargs = require('yargs')
     default: defaults.preset,
     describe: 'Commit message guideline preset'
   })
-  .option('lerna-package', {
-    type: 'string',
-    describe: 'Name of the package from which the tags will be extracted'
-  })
   .check((argv) => {
     if (typeof argv.scripts !== 'object' || Array.isArray(argv.scripts)) {
       throw Error('scripts must be an object')
@@ -116,7 +112,7 @@ const yargs = require('yargs')
   .alias('help', 'h')
   .example('$0', 'Update changelog and tag release')
   .example('$0 -m "%s: see changelog for details"', 'Update changelog and tag release with custom commit message')
-  .pkgConf('standard-version')
+  .pkgConf('chan-log')
   .config(getConfiguration())
   .wrap(97)
 
